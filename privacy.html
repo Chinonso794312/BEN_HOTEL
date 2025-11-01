@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy</title>
+  <link rel="stylesheet" href="fontawesome-free-6.4.0-web/css/all.css">
+  <link rel="stylesheet" href="css/policy.css">
+ 
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">B</div>
+      <div class="logo-text">B E N<span>_HOTEL</span></div>
+    </div>
+
+    <nav id="nav-menu">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="service.html">Service</a></li>
+        <li><a href="contact.html">Contact</a></li>
+       
+      </ul>
+    </nav>
+
+    <button class="logout-btn" onclick="confirmLogout()">Logout</button>
+    <div class="nav-toggle" id="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <h1>Privacy Policy</h1>
+    <p>Your privacy is important to us at Ben Hotel</p>
+  </section>
+
+  <div class="content">
+    <p>Ben Hotel operates the website and booking services to provide luxury accommodation and hospitality experiences. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website or visit our hotel.</p>
+
+    <h2>Information We Collect</h2>
+    <p>We may collect information such as your name, phone number, email address, billing details, and check-in preferences when you make a reservation or contact us. This helps us provide you with personalized service and better communication.</p>
+
+    <h2>How We Use Your Information</h2>
+    <p>Your data is used to confirm bookings, process payments, send updates about your stay, and notify you about exclusive hotel offers. We will never sell or misuse your personal data.</p>
+
+    <h2>Log Data</h2>
+    <p>When you visit our website, we automatically collect certain information such as your browser type, IP address, and pages visited. This helps us improve our website performance and service quality.</p>
+
+    <h2>Cookies</h2>
+    <p>Our website uses cookies to enhance your browsing experience and remember your preferences. You can choose to disable cookies, but some website features may not function properly.</p>
+
+    <h2>Third-Party Services</h2>
+    <p>We may work with third-party services such as payment gateways and analytics tools. These partners are bound by confidentiality agreements and will not use your data for unauthorized purposes.</p>
+
+    <h2>Security</h2>
+    <p>We prioritize your data protection using secure servers and encrypted connections. However, no online system is 100% secure, and we advise users to take care when sharing sensitive information.</p>
+
+    <h2>Contact Us</h2>
+    <p>If you have any questions or concerns about this Privacy Policy, please contact us at <strong>support@benhotel.com</strong>.</p>
+  </div>
+
+ 
+  <footer>
+    &copy; 2025 Ben Hotel. All Rights Reserved.
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu').querySelector('ul');
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+
+    function confirmLogout() {
+      const confirmOut = confirm("Are you sure you want to logout?");
+      if (confirmOut) {
+        window.location.href = "login.html";
+      }
+    }
+  </script>
+
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f5f2;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #3a1f04;
+      color: white;
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      background: white;
+      color: #3a1f04;
+      font-weight: bold;
+      font-size: 22px;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .logo-text span {
+      color: #ffb400;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffb400;
+    }
+
+    .logout-btn {
+      background: #ff4b5c;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #c0392b;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: #3a1f04;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 200px;
+        border-radius: 0 0 8px 8px;
+      }
+
+      nav ul.open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+    }
+    .page-header {
+      background: #3a1f04;
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .page-header h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    .content {
+      background: white;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #3a1f04;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background: #3a1f04;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+</style>
+</body>
+</html>
