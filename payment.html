@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ben Hotel Booking</title>
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<link rel="stylesheet" href="fontawesome-free-6.4.0-web/css/all.css">
+<link rel="stylesheet" href="css/payment.css">
+<header id="main-header">
+  <div class="logo">B E N<span>_HOTEL</span></div>
+
+  <button class="nav-toggle" id="nav-toggle">
+    <span class="hamburger-bar bar-top"></span>
+    <span class="hamburger-bar bar-middle"></span>
+    <span class="hamburger-bar bar-bottom"></span>
+  </button>
+
+  <nav id="nav-menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="room.html">Rooms</a></li>
+      <li><a href="service.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="mobile-logout"><button class="btn-action" id="logoutBtnMobile">SIGNOUT</button></li>
+    </ul>
+  </nav>
+<!-- 
+  <div class="header-actions">
+    <button class="btn-action" id="logoutBtn"></button>
+  </div> -->
+</header>
+
+<section class="rooms">
+  <div class="room-card" data-price="99000" data-room="Deluxe Room">
+    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80" alt="Deluxe Room">
+    <div class="room-content">
+      <h2>Deluxe Room</h2>
+      <p>Spacious room with modern amenities.</p>
+      <button class="select-room-btn">Book</button>
+    </div>
+  </div>
+
+  <div class="room-card" data-price="120000" data-room="Luxury Room">
+    <img src="pic/htl 20.jpg" alt="Luxury Room">
+    <div class="room-content">
+      <h2>Luxury Room</h2>
+      <p>Luxury with breathtaking views.</p>
+      <button class="select-room-btn">Book</button>
+    </div>
+  </div>
+
+  <div class="room-card" data-price="65000" data-room="Single Room">
+    <img src="pic/our-room-at-the-sea-tower.jpg" alt="Single Room">
+    <div class="room-content">
+      <h2>Single Room</h2>
+      <p>Perfect for solo travelers.</p>
+      <button class="select-room-btn">Book</button>
+    </div>
+  </div>
+</section>
+
+<form id="payment-form">
+  <h3>Guest Information</h3>
+  <input type="text" id="name" placeholder="Full Name" required>
+  <input type="email" id="email" placeholder="Gmail only" pattern="[a-z0-9._%+-]+@gmail\.com" required>
+  <p><strong>Selected Room:</strong> <span id="selected-room">None</span></p>
+  <p><strong>Total Price:</strong> ₦<span id="total-price">0</span></p>
+  <button type="button" id="pay-button">pay</button>
+</form>
+
+<script>
+
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.getElementById('nav-menu');
+navToggle.addEventListener('click', ()=>{navToggle.classList.toggle('open'); navMenu.classList.toggle('open');});
+
+
+const logoutBtns = document.querySelectorAll('#logoutBtn, #logoutBtnMobile');
+logoutBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    if(confirm("Do you really want to logout?")){
+      window.location.href="login.html";
+    }
+  });
+});
+
+const selectButtons = document.querySelectorAll('.select-room-btn');
+let selectedRoom = null;
+let roomPrice = 0;
+
+selectButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const card = btn.closest('.room-card');
+    selectedRoom = card.dataset.room;
+    roomPrice = card.dataset.price;
+    document.getElementById('selected-room').innerText = selectedRoom;
+    document.getElementById('total-price').innerText = roomPrice;
+    alert(`You selected ${selectedRoom}. Please proceed to payment.`);
+  });
+});
+
+document.getElementById('pay-button').addEventListener('click', ()=>{
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+
+  if(!selectedRoom){ alert("Please select a room first."); return; }
+  if(!name){ alert("Please enter your name."); return; }
+  if(!email.match(/[a-z0-9._%+-]+@gmail\.com/)){ alert("Please enter a valid Gmail address."); return; }
+
+  FlutterwaveCheckout({
+    public_key: "FLWPUBK-xxxxxxxxxxxxxxxxxxxxx",
+    tx_ref: "BEN_HOTEL-"+Date.now(),
+    amount: roomPrice,
+    currency: "NGN",
+    payment_options: "card, banktransfer, ussd",
+    customer: {name:name, email:email},
+    customizations: {title:"Ben Hotel Booking", description:`Booking ${selectedRoom}`, logo:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Hotel_Building_icon.svg/512px-Hotel_Building_icon.svg.png"},
+    callback: function(data){
+      if(data.status==="successful"){alert(`✅ Payment Successful!\nRoom: ${selectedRoom}\nCheck your Gmail for your access code.`);}
+      else{alert("❌ Payment Failed or Cancelled.");}
+    },
+    onclose:function(){console.log("Payment window closed.");}
+  });
+});
+</script>
+
+    <footer class="dark-bg">
+        <div class="footer-content" style="padding: 30px; text-align: center;">
+            <div class="logo" style="color: #bfa36a;">BEN_HOTEL</div>
+            <p style="font-size: 0.9em; margin-top: 10px;">&copy; 2025 BEN\_HOTEL Luxury Hotel. All Rights Reserved.</p>
+        </div>
+    </footer>
+<style>
+* {margin:0;
+ padding:0; 
+box-sizing:border-box; 
+ font-family: 'Poppins', sans-serif;
+}
+
+body {background:#f5f9fd; 
+ color:#333;
+  line-height:1.6;}
+button {cursor:pointer;
+}
+
+#main-header {display:flex; 
+    justify-content:space-between; 
+    align-items:center;
+     padding:10px 5%;
+     background:#1a1a1a; 
+     color:white;
+      position:sticky; 
+      top:0; z-index:1000;
+    }
+.logo {display:flex;
+     align-items:center;
+      font-weight:bold; 
+      font-size:1.5rem; 
+      color:white;
+    }
+.logo span {
+    color:#bfa36a;
+}
+.nav-toggle {
+    display:none; 
+    flex-direction:column; 
+    justify-content:center; 
+    width:30px;
+     height:30px; 
+     background:none; 
+     border:none;
+    }
+.hamburger-bar {
+    width:25px;
+     height:3px;
+     background:white;
+      margin:3px 0; 
+      transition:0.4s;
+    }
+.nav-toggle.open .bar-top {
+    transform:rotate(45deg)
+     translate(5px,5px);
+    }
+.nav-toggle.open .bar-middle {
+    opacity:0;
+}
+.nav-toggle.open .bar-bottom {
+    transform:rotate(-45deg) 
+    translate(5px,-5px);
+}
+#nav-menu ul {
+    list-style:none;
+     display:flex; gap:15px;
+    }
+#nav-menu ul li a, #nav-menu ul li button {
+    text-decoration:none; 
+    color:#ccc;
+     padding:5px 10px; 
+     text-transform:uppercase;
+      border:none;
+       background:none;
+    }
+#nav-menu ul li a:hover, #nav-menu ul li button:hover {
+    color:#bfa36a;
+}
+/* 
+.header-actions {
+    display:flex;
+     align-items:center; 
+     gap:10px;} 
+.btn-action {
+    background:#bfa36a; 
+    color:#1a1a1a; 
+    padding:5px 12px;
+     border-radius:20px; 
+    border:none; text-transform:uppercase; 
+    font-weight:bold;
+}
+.btn-action:hover {
+    background:white; 
+    color:#bfa36a;
+} */
+
+@media(max-width:768px){
+  .nav-toggle {
+    display:flex;
+}
+  #nav-menu {
+    display:none;
+     flex-direction:column; 
+     position:absolute; 
+     top:60px; 
+     left:0; 
+     width:100%;
+      background:#1a1a1a;
+    }
+  #nav-menu.open {
+    display:flex;
+}
+  #nav-menu ul {
+    flex-direction:column;
+}
+  #nav-menu ul li a, #nav-menu ul li button {
+    padding:15px; 
+    border-bottom:1px solid #333;
+}
+  .header-actions {
+    display:none;
+}
+}
+
+.rooms {
+    width:90%; 
+    max-width:1100px;
+     margin:20px auto;
+    }
+.room-card {
+    display:flex; 
+    flex-wrap:wrap;
+     background:white; 
+     border-radius:10px;
+      overflow:hidden;
+       box-shadow:0 2px 8px rgba(0,0,0,0.1); 
+       margin-bottom:20px;
+    }
+.room-card img {
+    flex:1 1 300px; 
+    width:100%; 
+    height:200px;
+     object-fit:cover;
+    }
+.room-content {
+    flex:1 1 300px; 
+    padding:15px;
+}
+.room-content h2 {
+    color:#bfa36a; 
+    margin-bottom:10px;
+}
+.room-content p {
+    margin-bottom:10px;
+}
+.room-content button {
+    background:#bfa36a;
+     color:#1a1a1a;
+      border:none;
+      padding:8px 15px; 
+      border-radius:5px;
+    }
+.room-content button:hover {
+    background:#1a1a1a; 
+    color:#bfa36a;
+}
+
+form {
+    background:white; 
+    padding:20px;
+     border-radius:10px; 
+     max-width:600px; margin:20px auto; 
+     box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    }
+form h3 {
+    margin-bottom:10px;
+}
+form input, form select {
+    width:100%; 
+    padding:10px;
+     margin:8px 0;
+      border:1px solid #ccc;
+       border-radius:5px;
+    }
+form button {
+    width:100%; background:#bfa36a; 
+    color:#1a1a1a;
+     padding:12px; 
+     border:none;
+      border-radius:5px;
+       font-size:16px;
+        margin-top:10px;
+    }
+form button:hover {
+    background:#1a1a1a;
+    color:#bfa36a;
+    }
+
+</style>
+</body>
+</html>
