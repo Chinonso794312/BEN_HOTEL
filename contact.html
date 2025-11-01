@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="fontawesome-free-6.4.0-web/css/all.css">
+  <link rel="stylesheet" href="css/contact.css">
+ 
+  </style>
+</head>
+<body>
+    
+<header id="main-header">
+  <div class="logo">
+    <span class="logo-icon">B</span> 
+    <span class="logo-text"><span>B E N</span>_H O T E L</span>
+  </div>
+
+  <nav id="nav-menu">
+    <ul>
+      <li><a href="about.html">about</a></li>
+      <li><a href="service.html">service</a></li>
+       <li><a href="payment.html"></a>Book</li>
+      <li><a href="room.html">room</a></li>
+      <li><a href="policy.html">policy</a></li>
+     
+    </ul>
+  </nav>
+
+  <div class="header-actions">
+    <button id="logoutBtn" class="btn-action">Logout</button>
+    <a href="payment.html" class="btn-action">Book Now</a>
+  <button class="nav-toggle" id="navToggle">
+    <span class="hamburger-bar bar-top"></span>
+    <span class="hamburger-bar bar-middle"></span>
+    <span class="hamburger-bar bar-bottom"></span>
+  </button>
+</header>
+</div>
+<main>
+  <h1>LETS_TALK</h1>
+  <div class="contact-container">
+    <div class="get-in-touch">
+       
+      <h2>Get In Touch</h>
+      <p>Feel free to contact us for support or business inquiries.</p>
+      <p><strong>Address:</strong> Ikota Villa Estate, Lekki, Lagos</p>
+      <p><strong>Phone:</strong> 08067879680</p>
+      <p><strong>Email:</strong> benhotel@gmail.com</p>
+    </div>
+
+    <div class="your-detail-card">
+      <h2>Your Details</h2>
+      <form>
+        <input type="text" placeholder="Your Name *" required>
+        <input type="email" placeholder="Email Address *" required>
+        <input type="text" placeholder="Subject *" required>
+        <textarea placeholder="Comments / Questions *" required></textarea>
+        <button type="submit" class="submit-btn">SEND MESSAGE</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<section class="map-section">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.605533580216!2d3.5495576735036614!3d6.4446667240774795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf700013ecf4d%3A0xa57f97fe1f477944!2sIkota%20Villa%20Estate!5e0!3m2!1sen!2sng!4v1761934647795!5m2!1sen!2sng" 
+    allowfullscreen="" 
+    loading="lazy">
+  </iframe>
+</section>
+
+<footer>
+  <p>© 2025 BEN_HOTEL. All rights reserved.</p>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('nav-menu');
+  
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('open');
+    navToggle.classList.toggle('open');
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    if (confirm("Are you sure you want to logout?")) {
+      window.location.href = "login.html";
+    }
+  });
+</script>
+<style>
+        :root {
+      --primary-color: #bfa36a;
+      --background-dark: #121212;
+      --card-dark: #1e1e1e;
+      --text-light: #f0f0f0;
+      --text-muted: #aaaaaa;
+      --padding-lg: 50px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background-image: url(../pic/htl\ 16.jpg);
+      /* background-color: var(--background-dark); */
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background-color: #1a1a1a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+      background-color: var(--primary-color);
+      color: #1a1a1a;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em;
+      margin-right: 8px;
+      box-shadow: 0 0 5px var(--primary-color);
+    }
+
+    .logo-text span {
+      color: var(--primary-color);
+      letter-spacing: 2px;
+    }
+
+    #nav-menu ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    #nav-menu ul li a {
+      text-decoration: none;
+      color: #ccc;
+      padding: 8px 12px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    #nav-menu ul li a:hover {
+      color: var(--primary-color);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-action {
+      text-decoration: none;
+      padding: 8px 15px;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      border-radius: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .btn-action:hover {
+      background-color: var(--primary-color);
+      color: #1a1a1a;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+    }
+
+    .hamburger-bar {
+      width: 25px;
+      height: 3px;
+      margin: 4px 0;
+      background-color: white;
+      transition: all 0.4s ease;
+    }
+
+    .nav-toggle.open .bar-top {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle.open .bar-middle {
+      opacity: 0;
+    }
+
+    .nav-toggle.open .bar-bottom {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      #nav-menu {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        text-align: center;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        padding: 20px 0;
+      }
+
+      #nav-menu.open {
+        display: block;
+      }
+
+      #nav-menu ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .header-actions {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+    }
+
+    main {
+      text-align: center;
+      padding: var(--padding-lg);
+    }
+
+    .contact-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .get-in-touch, .your-detail-card {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .your-detail-card {
+      background-color: var(--card-dark);
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      background-color: #282828;
+      border: 1px solid #333;
+      border-radius: 5px;
+      color: var(--text-light);
+    }
+
+    .submit-btn {
+      background-color: var(--primary-color);
+      color: #1a1a1a;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #d4b66d;
+    }
+
+    .map-section {
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    iframe {
+      border-radius: 10px;
+      width: 90%;
+      max-width: 1100px;
+      height: 400px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background-color: #0b0b0b;
+      padding: 50px 5%;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  
+</style>
+
+</body>
+</html>
