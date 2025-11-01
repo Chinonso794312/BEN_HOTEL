@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>room</title>
+   <link rel="stylesheet" href="css/room.css">
+    <link rel="stylesheet" href="fontawesome-free-6.4.0-web/css/all.css">
+</head>
+<body>
+
+<header id="main-header">
+  <div class="logo">
+    <div class="logo-icon">B</div>
+    <div class="logo-text">B E N<span>_HOTEL</span></div>
+   
+  </div>
+
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <span class="hamburger-bar bar-top"></span>
+    <span class="hamburger-bar bar-middle"></span>
+    <span class="hamburger-bar bar-bottom"></span>
+  </button>
+
+  <nav id="nav-menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="service.html">Service</a></li>
+      <li><a href="contact.html">Contact</a></li>
+       <li><a href="policy.html">policy</a></li>
+    </ul>
+  </nav>
+
+  <div class="header-actions">
+    <a href="login.html" class="btn-action">Login</a>
+    <a href="payment.html" class="btn-action">BOOK Now</a>
+  </div>
+</header>
+
+<div class="hero">CHECK AVAILABILITY</div>
+
+<div class="search-bar">
+  <form>
+    <input type="date" />
+    <input type="date" />
+
+    <select>
+      <option>Adults</option>
+      <option>1 Adult</option>
+      <option>2 Adults</option>
+      <option>3 Adults</option>
+      <option>4 Adults</option>
+      <option>5 Adults</option>
+    </select>
+
+    <select>
+      <option>Children</option>
+      <option>0</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+    </select>
+
+    <button type="button" onclick="alert('Searching available rooms...')">Revision</button>
+  </form>
+</div>
+
+
+<section class="rooms">
+
+  <div class="room-card">
+    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80" alt="Deluxe Room" />
+    <div class="room-content">
+      <h2>Deluxe Room</h2>
+      <p>Enjoy our spacious deluxe room with modern furniture and relaxing ambiance.</p>
+      <div class="price">$98 / night</div>
+      <button onclick="window.location.href='payment.html'">Book Now</button>
+    </div>
+  </div>
+
+  <div class="room-card">
+    <img src="pic/guest-room.jpg" alt="Luxury Room" />
+    <div class="room-content">
+      <h2>Luxury Room</h2>
+      <p>Luxury and comfort combined with breathtaking views and refined interior design.</p>
+      <div class="price">$120 / night</div>
+      <button onclick="window.location.href='payment.html'">Book Now</button>
+    </div>
+  </div>
+
+  <div class="room-card">
+    <img src="pic/junior-suite.jpg" alt="Single Room" />
+    <div class="room-content">
+      <h2>Single Room</h2>
+      <p>Perfect for solo travelers, offering comfort and tranquility at a great value.</p>
+      <div class="price">$65 / night</div>
+      <button onclick="window.location.href='payment.html'">Book Now</button>
+    </div>
+  </div>
+
+  <div class="room-card">
+    <img src="pic/htl 20.jpg" alt="Premium Room" />
+    <div class="room-content">
+      <h2>Premium Room</h2>
+      <p>Our premium room includes luxury furnishings and a stunning window view for a calm retreat.</p>
+      <div class="price">$150 / night</div>
+      <button onclick="window.location.href='payment.html'">Book Now</button>
+    </div>
+  </div>
+
+</section>
+
+    <footer class="dark-bg">
+        <div class="footer-content" style="padding: 30px; text-align: center;">
+            <div class="logo" style="color: #bfa36a;">BEN_HOTEL</div>
+            <p style="font-size: 0.9em; margin-top: 10px;">&copy; 2025 BEN\_HOTEL Luxury Hotel. All Rights Reserved.</p>
+        </div>
+    </footer>
+<script>
+
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.getElementById('nav-menu');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navMenu.classList.toggle('open');
+});
+
+
+const faders = document.querySelectorAll('.room-card');
+const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("fade-in");
+    observer.unobserve(entry.target);
+  });
+}, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
+</script>
+
+</body>
+</html>
