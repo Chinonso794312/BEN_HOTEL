@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LOGIN</title>
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="fontawesome-free-6.4.0-web/css/all.css">
+</style>
+</head>
+<body>
+  <div class="form-wrapper">
+    <div class="form-container">
+      <div class="user-icon">👤</div>
+      <div id="message" class="message"></div>
+     <form id="loginForm">
+        <input type="text" id="loginIdentifier" placeholder="Email or Phone" required />
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <div class="options">
+          <a id="forgotLink">Forgot Password?</a>
+          <a id="toRegister">Register</a>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+
+      <form id="registerForm" class="hidden">
+        <input type="email" id="regEmail" placeholder="Email" required />
+        <input type="text" id="regPhone" placeholder="Phone Number" required />
+        <input type="password" id="regPassword" placeholder="Password" required />
+        <div class="options">
+          <a id="toLogin">Back to Login</a>
+        </div>
+        <button type="submit">Register</button>
+      </form>
+
+      <form id="forgotForm" class="hidden">
+        <input type="text" id="forgotIdentifier" placeholder="Email or Phone" required />
+        <input type="password" id="newPassword" placeholder="New Password" required />
+        <div class="options">
+          <a id="backToLogin">Back to Login</a>
+        </div>
+        <button type="submit">Reset Password</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const forgotForm = document.getElementById("forgotForm");
+const message = document.getElementById("message");
+
+document.getElementById("toRegister").onclick = () => switchForm("register");
+document.getElementById("toLogin").onclick = () => switchForm("login");
+document.getElementById("forgotLink").onclick = () => switchForm("forgot");
+document.getElementById("backToLogin").onclick = () => switchForm("login");
+
+function switchForm(form) {
+  loginForm.classList.add("hidden");
+  registerForm.classList.add("hidden");
+  forgotForm.classList.add("hidden");
+  if (form === "login") loginForm.classList.remove("hidden");
+  if (form === "register") registerForm.classList.remove("hidden");
+  if (form === "forgot") forgotForm.classList.remove("hidden");
+  message.textContent = "";
+}
+
+function getUsers() {
+  return JSON.parse(localStorage.getItem("users")) || [];
+}
+
+function saveUsers(users) {
+  localStorage.setItem("users", JSON.stringify(users));
+}
+
+loginForm.onsubmit = (e) => {
+  e.preventDefault();
+  const id = loginForm.loginIdentifier.value.trim();
+  const pass = loginForm.loginPassword.value.trim();
+
+  const users = getUsers();
+  const user = users.find(
+    (u) => u.email === id || u.phone === id
+  );
+
+  if (!user) {
+    message.textContent = "Account not found. Please register.";
+    switchForm("register");
+    return;
+  }
+  if (user.password !== pass) {
+    message.textContent = "Wrong password!";
+    return;
+  }
+
+  message.style.color = "lightgreen";
+  message.textContent = "Login successful! Redirecting...";
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 1200);
+};
+
+registerForm.onsubmit = (e) => {
+  e.preventDefault();
+  const email = regEmail.value.trim();
+  const phone = regPhone.value.trim();
+  const password = regPassword.value.trim();
+
+  let users = getUsers();
+  if (users.some((u) => u.email === email || u.phone === phone)) {
+    message.textContent = "Email or phone already used!";
+    return;
+  }
+
+  users.push({ email, phone, password });
+  saveUsers(users);
+  message.style.color = "lightgreen";
+  message.textContent = "Registration successful! Please log in.";
+  setTimeout(() => switchForm("login"), 1200);
+};
+
+forgotForm.onsubmit = (e) => {
+  e.preventDefault();
+  const id = forgotIdentifier.value.trim();
+  const newPass = newPassword.value.trim();
+
+  let users = getUsers();
+  const user = users.find((u) => u.email === id || u.phone === id);
+  if (!user) {
+    message.textContent = "Account not found!";
+    return;
+  }
+
+  user.password = newPass;
+  saveUsers(users);
+  message.style.color = "lightgreen";
+  message.textContent = "Password updated! Please log in.";
+  setTimeout(() => switchForm("login"), 1200);
+};
+</script>
+<style>
+    :root {
+  --cyan: #00ffff;
+  --magenta: #ff00ff;
+  --white: #ffffff;
+  --dark-bg: #111;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url(../pic/htl\ 16.jpg);
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: cover;
+  /* background: radial-gradient(circle at center, #0a0a0a 60%, #000); */
+  color: var(--white);
+  overflow: hidden;
+}
+
+.form-wrapper {
+  position: relative;
+  padding: 3px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.form-container {
+  width: 320px;
+  background: rgba(25, 25, 25, 0.8);
+  border-radius: 20px;
+  text-align: center;
+  padding: 40px 30px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.form-wrapper::before,
+.form-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    var(--cyan),
+    var(--magenta),
+    var(--cyan)
+  );
+  animation: spinBorder 6s linear infinite;
+  transform-origin: center;
+  z-index: 1;
+}
+
+@keyframes spinBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.form-wrapper::after {
+  filter: blur(25px);
+  opacity: 0.7;
+}
+
+.user-icon {
+  font-size: 45px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  padding: 10px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -70px auto 20px;
+  z-index: 3;
+  position: relative;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  color: var(--white);
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.options a {
+  color: var(--cyan);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.switch-link {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.switch-link a {
+  color: var(--magenta);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.message {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #f66;
+  min-height: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 400px) {
+  .form-container {
+    width: 90%;
+  }
+}
+</style>
+</body>
+</html>
